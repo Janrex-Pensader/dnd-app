@@ -62,7 +62,7 @@
     </head>
     <body class="antialiased">
         <!-- character details -->
-        <div class="container">
+        <div class="container mb-5">
             <!--  -->
             <div class="row mt-5">
                 <!-- character information -->
@@ -125,20 +125,21 @@
             <div class="row mt-2">
                 <!-- modifier -->
                 <div class="col-8 card">
-                    <div class="row p-2">
+                    <div class="row">
                         <?php 
                             $mods = array("Strenght", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"); 
-                            foreach($mods as $mod): ?>
-                                <div class="col m-1 p-0">
+                            $scores = array(20, 15, 18, 11, 16, 14); 
+                            foreach($mods as $index => $mod): ?>
+                                <div class="col p-0 m-2">
                                     <div class="card">
                                         <div class="card-header p-1 text-center">
                                             <?= $mod?>
                                         </div>
                                         <div class="card-body p-2 text-center">
-                                            <h3>+3</h3>
+                                            <h3>+<?=(int) floor(($scores[$index]-10)/2)?></h3>
                                         </div>
                                         <div class="card-footer p-1 text-center">
-                                            int
+                                            <?= $scores[$index]?>
                                         </div>
                                     </div>
                                 </div>
@@ -153,7 +154,30 @@
 
             <div class="row mt-2">
                 <div class="col card">
-                    Skills
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">PROF</th>
+                                <th class="">SKILL</th>
+                                <th class="text-center">BONUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                $skills = array("Acrobatics","Animal Handing","Arcana","Athletics","Deception","History","Insight","Intimidation","Investigation","Medicine","Nature","Perception","Persuasion","Religion","Sleight of Hand","Stealth","Survival"); 
+                                $scores = array(20, 15, 18, 11, 16, 14);
+                                
+                                foreach($skills as $skill): ?>
+                                <tr>
+                                    <td class="text-center"><i class="fa-solid fa-circle"></i></td>
+                                    
+                                    <td><?= $skill ?></td>
+                                    <td class="text-center"><span class="border p-1">+3</span></td>
+                                </tr>
+                                    
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="col ml-10">
                     <div class="row ">
@@ -176,10 +200,10 @@
                             <div class="row h-100"><p class="h1 my-auto mb-2">30 <small class="h3 muted">ft</small></p></div>
                         </div>
                     </div>
-                    <div class="row card mt-2 p-2">
-                        <p class="h4"><span class="h3">13</span> Passive Perception</p>
-                        <p class="h4"><span class="h3">13</span> Passive Investigation</p>
-                        <p class="h4"><span class="h3">13</span> Passive Insight</p>
+                    <div class="row card mt-2 py-3">
+                        <p><span class="h4 border px-2">13</span> <span class="h4 px-2">Passive Perception</span></p>
+                        <p><span class="h4 border px-2">15</span> <span class="h4 px-2">Passive Investigation</span></p>
+                        <p><span class="h4 border px-2">12</span> <span class="h4 px-2">Passive Insight</span></p>
                     </div>
                     <div class="row card mt-2 p-2">
                         <p>Conditions</p>
