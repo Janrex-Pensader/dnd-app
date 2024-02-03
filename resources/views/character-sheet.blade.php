@@ -57,8 +57,16 @@
             .ml-10{
                 margin-left: 10px !important;
             }
+            .mr-10{
+                margin-right: 10px !important;
+            }
 
         </style>
+
+        <?php 
+            $mods = array("Strenght", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"); 
+            $scores = array(20, 15, 18, 11, 16, 14); 
+        ?>
     </head>
     <body class="antialiased">
         <!-- character details -->
@@ -75,7 +83,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-9 col-sm-6 m-2 my-auto">
+                        <div class="col-lg-9 col-sm-6 col-md-3 m-2 my-auto">
                             <div class="row my-2">
                                 <div class="col">
                                     Name: 
@@ -104,9 +112,9 @@
                     </div>
                 </div>
                 <div class="col m-0 px-0 ml-10">
-                    <button id="long_rest" class="btn btn-info btn-sm p-2 w-100" type="button"><i class="fas fa-user-cog"></i> Update</button><br>
-                    <button id="short_rest" class="btn btn-success btn-sm p-2 my-1 w-100" type="button"><i class="fa-sharp fa-light fa-campfire"></i> Short Rest</button> <br>
-                    <button id="long_rest" class="btn btn-primary btn-sm p-2 w-100" type="button"><i class="fa-sharp fa-regular fa-campground"></i> Long Rest</button><br>
+                    <button id="long_rest" class="btn btn-info btn-sm p-2 w-100" type="button"><i class="fas fa-user-cog me-1"></i> Update</button><br>
+                    <button id="short_rest" class="btn btn-success btn-sm p-2 my-1 w-100" type="button"><i class="fa-sharp fa-light fa-campfire me-1"></i> Short Rest</button> <br>
+                    <button id="long_rest" class="btn btn-primary btn-sm p-2 w-100" type="button"><i class="fa-sharp fa-regular fa-campground me-1"></i> Long Rest</button><br>
                     <span class="p-2">Inspiration</span>
                 </div>
                 <!-- Health points -->
@@ -124,13 +132,11 @@
             <!-- row 2 -->
             <div class="row mt-2">
                 <!-- modifier -->
-                <div class="col-8 card">
+                <div class="col-8">
                     <div class="row">
                         <?php 
-                            $mods = array("Strenght", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"); 
-                            $scores = array(20, 15, 18, 11, 16, 14); 
                             foreach($mods as $index => $mod): ?>
-                                <div class="col p-0 m-2">
+                                <div class="col p-0 mr-10">
                                     <div class="card">
                                         <div class="card-header p-1 text-center">
                                             <?= $mod?>
@@ -146,33 +152,37 @@
                         <?php endforeach; ?>
                     </div>
                 </div>
-                <!-- saving throw -->
-                <div class="col card ml-10">
-                    Saving throws
+                <!-- Passives -->
+                <div class="col card py-1 px-auto">
+                    <p class="m-1"><span class="h4 border px-2">13</span> <span class="h4 px-2">Passive Perception</span></p>
+                    <p class="m-1"><span class="h4 border px-2">15</span> <span class="h4 px-2">Passive Investigation</span></p>
+                    <p class="m-1"><span class="h4 border px-2">12</span> <span class="h4 px-2">Passive Insight</span></p>
                 </div>
             </div>
-
+            <!-- 3rd row -->
             <div class="row mt-2">
+                <!-- Skills -->
                 <div class="col card">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th class="text-center">PROF</th>
-                                <th class="">SKILL</th>
+                                <th class="">SKILLS</th>
                                 <th class="text-center">BONUS</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php 
                                 $skills = array("Acrobatics","Animal Handing","Arcana","Athletics","Deception","History","Insight","Intimidation","Investigation","Medicine","Nature","Perception","Persuasion","Religion","Sleight of Hand","Stealth","Survival"); 
-                                $scores = array(20, 15, 18, 11, 16, 14);
                                 
                                 foreach($skills as $skill): ?>
                                 <tr>
                                     <td class="text-center"><i class="fa-solid fa-circle"></i></td>
                                     
                                     <td><?= $skill ?></td>
-                                    <td class="text-center"><span class="border p-1">+3</span></td>
+                                    <td class="text-center"><span class="border p-1">
+                                        +3
+                                    </span></td>
                                 </tr>
                                     
                             <?php endforeach; ?>
@@ -200,10 +210,25 @@
                             <div class="row h-100"><p class="h1 my-auto mb-2">30 <small class="h3 muted">ft</small></p></div>
                         </div>
                     </div>
-                    <div class="row card mt-2 py-3">
-                        <p><span class="h4 border px-2">13</span> <span class="h4 px-2">Passive Perception</span></p>
-                        <p><span class="h4 border px-2">15</span> <span class="h4 px-2">Passive Investigation</span></p>
-                        <p><span class="h4 border px-2">12</span> <span class="h4 px-2">Passive Insight</span></p>
+                    <!-- Saving Throws -->
+                    <div class="row card mt-2 px-2">
+                        <table class="table">
+                            <thead>
+                                <p class="h6 my-2 text-center">SAVING THROWS</p>
+                            </thead>
+                        <tbody>
+                            <?php 
+                                foreach($mods as $index =>$mod): ?>
+                                <tr>
+                                    <td class="text-center"><i class="fa-solid fa-circle"></i></td>
+                                    
+                                    <td><?= $mod ?></td>
+                                    <td class="text-center"><span class="border p-1">+<?=(int) floor(($scores[$index]-10)/2)?></span></td>
+                                </tr>
+                                    
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                     </div>
                     <div class="row card mt-2 p-2">
                         <p>Conditions</p>
