@@ -7,48 +7,19 @@
 
         <title>Laravel</title>
 
-        <!-- CDN -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
+         <!-- CDN -->
+         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-       
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link
-      rel="stylesheet"
-      data-purpose="Layout StyleSheet"
-      title="Web Awesome"
-      href="/css/app-wa-462d1fe84b879d730fe2180b0e0354e0.css?vsn=d"
-    >
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-thin.css">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-solid.css">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-regular.css">
+        <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-light.css" >
 
-      <link
-        rel="stylesheet"
-        href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css"
-      >
-
-      <link
-        rel="stylesheet"
-        href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-thin.css"
-      >
-
-      <link
-        rel="stylesheet"
-        href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-solid.css"
-      >
-
-      <link
-        rel="stylesheet"
-        href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-regular.css"
-      >
-
-      <link
-        rel="stylesheet"
-        href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-light.css"
-      >
-        <!-- js -->
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        
         <!-- Styles -->
         <style>
             #heal_btn, #damage_btn, #hp_input{
@@ -63,10 +34,6 @@
 
         </style>
 
-        <?php 
-            $mods = array("Strenght", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"); 
-            $scores = array(20, 15, 18, 11, 16, 14); 
-        ?>
     </head>
     <body class="antialiased">
         <!-- character details -->
@@ -86,26 +53,31 @@
                         <div class="col-lg-9 col-sm-6 col-md-3 m-2 my-auto">
                             <div class="row my-2">
                                 <div class="col">
-                                    Name: 
+                                    Name: <?= $character[0]->Character_Name; ?>
                                 </div>
                                 <div class="col">
-                                    Race:
+                                    Race: <?= $character[0]->race_text; ?>
                                 </div>
                             </div>
                             <div class="row my-2">
                                 <div class="col">
-                                    Level:
+                                    Level: <?= $level ?>
                                 </div>
                                 <div class="col">
                                     Class:
+                                    <?php
+                                        foreach($classes as $class){
+                                            echo $class->Class.' ';
+                                        }
+                                    ?>
                                 </div>
                             </div>
                             <div class="row my-2">
                                 <div class="col">
-                                    Gender:
+                                    Gender: <?= $character[0]->gender_text; ?>
                                 </div>
                                 <div class="col">
-                                    Background:
+                                    Background: <?= $character[0]->background_text; ?>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +92,7 @@
                 <!-- Health points -->
                 <div class="card col ml-10">
                     <div class="row mt-2">
-                        <span class="h1 text-center my-auto">100/100</span>
+                        <span class="h1 text-center my-auto"><?= $character[0]->Current_HP; ?>/<?= $character[0]->Total_HP; ?></span>
                     </div>
                     <div class="row mt-2">
                         <button id="heal_btn" class="btn btn-success btn-sm" type="button"><i class="fa-sharp fa-solid fa-plus"></i> Heal</button>
@@ -142,10 +114,10 @@
                                             <?= $mod?>
                                         </div>
                                         <div class="card-body p-2 text-center">
-                                            <h3>+<?=(int) floor(($scores[$index]-10)/2)?></h3>
+                                            <h3>+<?=(int) floor(($ability_score[0]->$mod-10)/2)?></h3>
                                         </div>
                                         <div class="card-footer p-1 text-center">
-                                            <?= $scores[$index]?>
+                                            <?= $ability_score[0]-> $mod?>
                                         </div>
                                     </div>
                                 </div>
@@ -154,9 +126,30 @@
                 </div>
                 <!-- Passives -->
                 <div class="col card py-1 px-auto">
-                    <p class="m-1"><span class="h4 border px-2">13</span> <span class="h4 px-2">Passive Perception</span></p>
-                    <p class="m-1"><span class="h4 border px-2">15</span> <span class="h4 px-2">Passive Investigation</span></p>
-                    <p class="m-1"><span class="h4 border px-2">12</span> <span class="h4 px-2">Passive Insight</span></p>
+                    <div class="row m-1">
+                        <div class="col border text-center p-0">
+                            <span class="h4 px-2"><?= $passive_perception?></span> 
+                        </div>
+                        <div class="col-10">
+                            <span class="h4 px-2">Passive Perception</span>
+                        </div>
+                    </div>
+                    <div class="row m-1">
+                        <div class="col border text-center p-0">
+                            <span class="h4 px-2"><?= $passive_investigation?></span> 
+                        </div>
+                        <div class="col-10">
+                            <span class="h4 px-2">Passive Investigation</span>
+                        </div>
+                    </div>
+                    <div class="row m-1">
+                        <div class="col border text-center p-0">
+                            <span class="h4 px-2"><?= $passive_insight?></span> 
+                        </div>
+                        <div class="col-10">
+                            <span class="h4 px-2">Passive Insight</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- 3rd row -->
@@ -173,15 +166,71 @@
                         </thead>
                         <tbody>
                             <?php 
-                                $skills = array("Acrobatics","Animal Handing","Arcana","Athletics","Deception","History","Insight","Intimidation","Investigation","Medicine","Nature","Perception","Persuasion","Religion","Sleight of Hand","Stealth","Survival"); 
-                                
                                 foreach($skills as $skill): ?>
                                 <tr>
-                                    <td class="text-center"><i class="fa-solid fa-circle"></i></td>
-                                    
-                                    <td><?= $skill ?></td>
-                                    <td class="text-center"><span class="border p-1">
-                                        +3
+                                    <?php
+                                        
+                                        if($skill_prof[0]->$skill == 1){
+                                            echo '<td class="text-center"><i class="fa-solid fa-circle"></i></td>';
+                                            $prof = $proficiency;
+                                        }
+                                        else{
+                                            echo '<td class="text-center"><i class="fa-regular fa-circle"></i></td>';
+                                            $prof = 0;
+                                        }
+                                     
+                                    ?>
+                                    <?php
+                                        if(in_array($skill, $str_skills)){
+                                            $ability = $mods[0];
+                                            echo '<td data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="'.$ability.'">'.$skill.'</td>';
+                                        }
+                                        else if(in_array($skill, $dex_skills)){
+                                            $ability = $mods[1];
+                                            echo '<td data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="'.$ability.'">'.$skill.'</td>';
+                                        }
+                                        else if(in_array($skill, $int_skills)){
+                                            $ability = $mods[3];
+                                            echo '<td data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="'.$ability.'">'.$skill.'</td>';
+                                        }
+                                        else if(in_array($skill, $wis_skills)){
+                                            $ability = $mods[4];
+                                            echo '<td data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="'.$ability.'">'.$skill.'</td>';
+                                        }
+                                        else if(in_array($skill, $cha_skills)){
+                                            $ability = $mods[5];
+                                            echo '<td data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="'.$ability.'">'.$skill.'</td>';
+                                        }
+                                    ?>
+                                    <td class="text-center"><span name="<?= 'skill_'.$skill ?>" class="border p-1">
+                                        <?php 
+                                            if(in_array($skill, $str_skills)){
+                                                $ability = $mods[0];
+                                                $str = $ability;
+                                                echo '+'.floor((($ability_score[0]->$ability)-10)/2+$prof);
+                                            }
+                                            else if(in_array($skill, $dex_skills)){
+                                                $ability = $mods[1];
+                                                $dex = $ability;
+                                                echo '+'.floor((($ability_score[0]->$ability)-10)/2+$prof);
+
+                                            }
+                                            else if(in_array($skill, $int_skills)){
+                                                $ability = $mods[3];
+                                                $int = $ability;
+                                                 echo '+'.floor((($ability_score[0]->$ability)-10)/2+$prof);
+                                            }
+                                            else if(in_array($skill, $wis_skills)){
+                                                $ability = $mods[4];
+                                                $wis = $ability;
+                                                echo '+'.floor((($ability_score[0]->$ability)-10)/2+$prof);
+                                            }
+                                            else if(in_array($skill, $cha_skills)){
+                                                $ability = $mods[5];
+                                                $cha = $ability;
+                                                echo '+'.floor((($ability_score[0]->$ability)-10)/2+$prof);
+                                            }
+                                        ?>
                                     </span></td>
                                 </tr>
                                     
@@ -193,7 +242,9 @@
                     <div class="row ">
                         <div class="col card text-center m-0 p-0">
                             <div class="row"><p class="h6 my-auto mt-2">Initiative</p></div>
-                            <div class="row"><p class="h1 my-auto mb-2"><i class="fa-sharp fa-regular fa-swords"></i>+3</p></div>
+                            <div class="row"><p class="h1 my-auto mb-2"><i class="fa-sharp fa-regular fa-swords"></i>
+                                <?= '+'.(int) floor(($ability_score[0]->$dex-10)/2);?>
+                            </p></div>
                         </div>
                         <div class="col card text-center ml-10 p-0">
                         <div class="row"><p class="h6 my-auto mt-2">Armor Class</p></div>
@@ -203,7 +254,7 @@
                     <div class="row mt-2">
                         <div class="col card text-center m-0 p-0">
                             <div class="row"><p class="h6 my-auto mt-2">Proficiency</p></div>
-                            <div class="row"><p class="h1 my-auto mb-2">+3</p></div>
+                            <div class="row"><p class="h1 my-auto mb-2"><?= '+'.$proficiency?></p></div>
                         </div>
                         <div class="col card text-center ml-10 p-0">
                         <div class="row"><p class="h6 my-auto mt-2">Walking Speed</p></div>
@@ -216,43 +267,54 @@
                             <thead>
                                 <p class="h6 my-2 text-center">SAVING THROWS</p>
                             </thead>
-                        <tbody>
-                            <?php 
-                                foreach($mods as $index =>$mod): ?>
-                                <tr>
-                                    <td class="text-center"><i class="fa-solid fa-circle"></i></td>
-                                    
-                                    <td><?= $mod ?></td>
-                                    <td class="text-center"><span class="border p-1">+<?=(int) floor(($scores[$index]-10)/2)?></span></td>
-                                </tr>
-                                    
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            <tbody>
+                                <?php 
+                                    foreach($mods as $index =>$mod): ?>
+                                    <tr>
+                                        <?php
+                                            if($saving_throws[0]->$mod == 1){
+                                                echo '<td class="text-center"><i class="fa-solid fa-circle"></i></td>';
+                                                $prof = $proficiency;
+                                            }
+                                            else {
+                                                echo '<td class="text-center"><i class="fa-regular fa-circle"></i></td>';
+                                                $prof = 0;
+                                            }
+                                            
+                                        ?>
+                                        <td><?= $mod ?></td>
+                                        <td class="text-center">
+                                            <span class="border p-1">
+                                                <?='+'.floor((($ability_score[0]->$mod)-10)/2+$prof); ?>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                        
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="row card mt-2 p-2">
                         <p>Conditions</p>
                     </div>
                 </div>
+                <!-- notes -->
                 <div class="col-6 ml-10 card p-0">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Actions</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Spells</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Notes</button>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-                    </div>
+                    <!-- tabs -->
+                    @include('notes-tabs')
                 </div>
             </div>
         </div> <!-- end container -->
+
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script>
+            
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+
+        </script>
     </body>
 </html>
